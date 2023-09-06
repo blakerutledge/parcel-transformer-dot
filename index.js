@@ -23,10 +23,23 @@ const transformer = new Transformer({
             loadfile: function(path) { return fs.readFileSync( path ) }
         }
 
-        // Get custom def's from specified dist
+        // SIMPLE config values
+        if (config.argName) {
+            doT.templateSettings.argName = config.argName
+        }
+
+        if (config.strip) {
+            doT.templateSettings.strip = config.strip === 'true'
+        }
+
+        if (config.selfContained) {
+            doT.templateSettings.selfContained = config.selfContained === 'true'
+        }
+
+        // CUSTOM def's path from config
         let defs_path = config.defsDir
             ? path.join(process.cwd(), config.defsDir)
-            : false
+            : undefined
         
         if ( defs_path !== undefined ) {
             

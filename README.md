@@ -25,10 +25,10 @@ Optionally, add the following config to your `package.json` file, the defaults a
 ```json
 {
     "parcel-transformer-dot": {
-        "varname": "it",
+        "argName": "it",
         "strip": "true",
-        "selfcontained": "false",
-        "defsDir": "undefined"
+        "selfContained": "false",
+        // "defsDir": undefined
     }
 }
 ```
