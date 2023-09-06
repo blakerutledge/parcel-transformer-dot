@@ -1,13 +1,14 @@
 # parcel-transformer-dot
+
 Transforms doT files to template functions
 
-Works with Parcel 2
+Compatible only with Parcel 2, and uses the latest 2.0 beta release of doT.js
 
 # Install
 
 ```bash
-npm install --save-dev parcel-transformer-dot
-yarn add -D parcel-transformer-dot
+npm install parcel-transformer-dot@git+https://github.com/blakerutledge/parcel-transformer-dot
+yarn add parcel-transformer-dot@git+https://github.com/blakerutledge/parcel-transformer-dot
 ```
 
 In your `.parcelrc` add: 
@@ -47,6 +48,17 @@ document.body.innerHTML = templateFunction( data );
 {{~ }}	for array iteration
 ```
 
+#### Inline SVGs
+```
+{{#def.loadfile("./src/assets/yourfile.svg") }}
+```
+
+# Config
+
+```
+
+```
+
 # Credits
- - [doT](https://github.com/olado/doT/tree/v2) - The fastest + most concise javascript template engine for nodejs and browsers
+ - [doT](http://olado.github.io/doT/index.html) - The fastest + most concise javascript template engine for nodejs and browsers
  - [Parcel](https://parceljs.org/) - Zero configuration bundler

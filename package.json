@@ -8,6 +8,7 @@
     "engines": {
         "parcel": "2.x"
     },
+    "type": "module",
     "dependencies": {
         "parcel": "^2.0.1",
         "dot": "2.0.0-beta.1"

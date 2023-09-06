@@ -1,67 +1,53 @@
-const fs = require('fs')
-const path = require('path')
-const doT = require('dot')
-const { Transformer } = require("@parcel/plugin")
+import * as fs from "fs"
+import * as path from "path"
+import doT from "dot"
+import { Transformer } from "@parcel/plugin"
 
-const transformer = new Transformer({
-    async transform({ asset }) {
+const transformer = new Transformer( {
 
-        let content = await asset.getCode();
+    async transform( { asset } ) {
 
-        // 
-        // INLINE svg assets
-        // 
+        let content = await asset.getCode()
+        
+        // ALLOW inlining files into other files
+        let defs = {
+            loadfile: function(path) { return fs.readFileSync( path ) }
+        }
+        console.log( process.cwd() )
+        // Get custom def's from specified dist
+        let defs_path = path.join( process.cwd(), "src", "frontend", "templates", "defs" )
+        if ( defs_path !== undefined ) {
+            
+            // List all files
+            const defs_files = await fs.promises.readdir(defs_path)
+            
+            // Read all files
+            const files = await Promise.all(
+                defs_files.map( async (filename) => {
+                    const filepath = path.join(defs_path, filename)
+                    return fs.promises.readFile(filepath, { encoding: "utf-8" })
+                } )
+            )
 
-        let regex = /<include src=(.*?)\/>/g;
-        let includes = content.match(regex);
-        let cache = {}
-        for (let match in includes) {
-
-            let file = includes[match]
-
-            file = file.replace(/<include src=/g, "")
-                .replace(/\/>/g, "")
-                .replace(/"/g, "")
-                .replace(/'/g, "");
-
-            file = file.trim()
-
-            // HACK this should be better but it works for me
-            file = path.join(__dirname, '..', '..', 'src', 'frontend', file)
-
-            let svg = (cache[file])
-                ? cache[file]
-                : fs.readFileSync(file, 'utf-8')
-
-            cache[file] = (cache[file])
-                ? cache[file]
-                : svg
-
-            content = content.replace(includes[match], cache[file])
+            // Test & Prepend any used defines
+            files.forEach( f => {
+                let name = f.split(":")[0].replace("{{##def.", "")
+                let usage = `{{#def.${name}:`
+                if (content.includes(usage)) {
+                    content = f + "\n\n" + content
+                }
+            } )
 
         }
-
-        //
-        // doT Template 
-        // 
         
-        let defs = {}
-        defs.loadfile = function(path) {
-            return fs.readFileSync(process.argv[1].replace(/\/[^\/]*$/,path));
-        };
-        
-        // const precompiled = Handlebars.precompile(content, { knownHelpers: helpers });
         const precompiled = doT.template( content, undefined, defs )
-
-        asset.setCode(`
-        export default ${precompiled}`)
+        
+        asset.setCode( `export default ${ precompiled}` )
         asset.type = "js"
-        return [asset];
-    },
-});
+        return [ asset ]
+        
+    }
 
+} )
 
-
-
-
-module.exports = transformer;
+export default transformer
