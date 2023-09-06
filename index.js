@@ -3,19 +3,31 @@ import * as path from "path"
 import doT from "dot"
 import { Transformer } from "@parcel/plugin"
 
-const transformer = new Transformer( {
+const transformer = new Transformer({
+    
+    async loadConfig( { config } ) {
+        const packageJson = await config.getPackage()
+        const transform_config = packageJson?.[ 'parcel-transformer-dot' ]
+        if ( Object.prototype.toString.call( transform_config ) === '[object Object]' ) {
+            return Promise.resolve( transform_config )
+        }
+        return Promise.resolve( {} )
+    },
 
-    async transform( { asset } ) {
-
+    async transform( { asset, config } ) {
+        
         let content = await asset.getCode()
         
         // ALLOW inlining files into other files
         let defs = {
             loadfile: function(path) { return fs.readFileSync( path ) }
         }
-        console.log( process.cwd() )
+
         // Get custom def's from specified dist
-        let defs_path = path.join( process.cwd(), "src", "frontend", "templates", "defs" )
+        let defs_path = config.defsDir
+            ? path.join(process.cwd(), config.defsDir)
+            : false
+        
         if ( defs_path !== undefined ) {
             
             // List all files
