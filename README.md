@@ -1,29 +1,29 @@
-# parcel-transformer-hbs
-Transforms hbs files to template functions
+# parcel-transformer-dot
+Transforms doT files to template functions
 
-Works with parcel 2
+Works with Parcel 2
 
 # Install
 
 ```bash
-npm install --save-dev parcel-transformer-hbs
-yarn add -D parcel-transformer-hbs
+npm install --save-dev parcel-transformer-dot
+yarn add -D parcel-transformer-dot
 ```
 
 In your `.parcelrc` add: 
 ```json
 "transformers": {
-  "*.hbs": ["parcel-transformer-hbs"]
+  "*.dot": ["parcel-transformer-dot"]
 }
 ```
 
 # Usage
 
-Import your handlebars template:  
+Import your doT template:  
 
 ```javascript
 // index.js
-import templateFunction from './template.hbs';
+import templateFunction from './template.dot';
 document.body.innerHTML = templateFunction();
 ```
 
@@ -39,5 +39,5 @@ Import `index.js` from your `index.html` file:
 ```
 
 # Credits
- - [Handlebars](https://handlebarsjs.com/) - A templates on steroids.
- - [Parcel](https://parceljs.org/) - Zero configuration bundler.
+ - [doT](https://github.com/olado/doT/tree/v2) - The fastest + most concise javascript template engine for nodejs and browsers
+ - [Parcel](https://parceljs.org/) - Zero configuration bundler
