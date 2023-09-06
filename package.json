@@ -19,5 +19,17 @@
         "dot",
         "parcel dot plugin",
         "parcel dot transform"
-    ]
+    ],
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/blakerutledge/parcel-transformer-dot.git"
+    },
+    "bugs": {
+        "url": "https://github.com/blakerutledge/parcel-transformer-dot/issues"
+    },
+    "homepage": "https://github.com/blakerutledge/parcel-transformer-dot#readme"
 }

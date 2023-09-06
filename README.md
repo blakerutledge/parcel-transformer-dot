@@ -7,8 +7,8 @@ Compatible only with Parcel 2, and uses the latest 2.0 beta release of doT.js
 # Install
 
 ```bash
-npm install parcel-transformer-dot@git+https://github.com/blakerutledge/parcel-transformer-dot
-yarn add parcel-transformer-dot@git+https://github.com/blakerutledge/parcel-transformer-dot
+npm install parcel-transformer-dot
+yarn add parcel-transformer-dot
 ```
 
 In your `.parcelrc` add: 
@@ -51,15 +51,6 @@ document.body.innerHTML = templateFunction( data );
 
 # doT Usage
 
-```
-{{ }}	for evaluation
-{{= }}	for interpolation
-{{! }}	for interpolation with encoding
-{{# }}	for compile-time evaluation/includes and partials
-{{## #}}	for compile-time defines
-{{? }}	for conditionals
-{{~ }}	for array iteration
-```
 #### Interpolation
 ```
 <div>Hi {{=it.name}}!</div>
@@ -67,7 +58,7 @@ document.body.innerHTML = templateFunction( data );
 ```
 
 #### Evaluation
-You can just write valid javascript.. no need for something like Handlebars Helpers!
+You can just write valid Javascript.. no need for anything as unwieldy and bloated as the Handlebars Helpers!
 ```
 {{ for(var prop in it) { }}
 <div>{{=prop}}</div>
@@ -133,8 +124,10 @@ A relative path (local to your package.json file) specifying a directory of `.do
 #}}
 ```
 
-Then, in any of your standard templates, you may access these reuseable partials. Partials are only prepended to the templates that make use them.
-
+Then, in any of your standard templates, you may access these re-useable partials. Partials are only prepended to the templates that make use them.
+```
+{{#def.my_partial:it.that_parameter}}
+```
 
 # Credits
  - [doT](http://olado.github.io/doT/index.html) - The fastest + most concise javascript template engine for nodejs and browsers
