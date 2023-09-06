@@ -21,21 +21,30 @@ In your `.parcelrc` add:
 
 Import your doT template:  
 
-```javascript
-// index.js
-import templateFunction from './template.dot';
-document.body.innerHTML = templateFunction();
+```html
+<!-- template.dot -->
+<div class="content">
+    {{= message }}
+</div>
 ```
 
-Import `index.js` from your `index.html` file:
+```javascript
+// index.js
+import templateFunction from './template.dot'
+const data = { message: "hello world" }
+document.body.innerHTML = templateFunction( data );
+```
 
-```html
-<!DOCTYPE html>
-<html>
-  <body>
-    <script src="./index.js"></script>
-  </body>
-</html>
+# doT Usage
+
+```
+{{ }}	for evaluation
+{{= }}	for interpolation
+{{! }}	for interpolation with encoding
+{{# }}	for compile-time evaluation/includes and partials
+{{## #}}	for compile-time defines
+{{? }}	for conditionals
+{{~ }}	for array iteration
 ```
 
 # Credits
