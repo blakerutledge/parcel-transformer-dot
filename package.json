@@ -1,0 +1,22 @@
+{
+    "name": "parcel-transformer-dot",
+    "version": "0.1.0",
+    "description": "transforms doT template files to template functions",
+    "main": "index.js",
+    "author": "Blake Rutledge",
+    "license": "MIT",
+    "engines": {
+        "parcel": "2.x"
+    },
+    "dependencies": {
+        "parcel": "^2.0.1",
+        "dot": "2.0.0-beta.1"
+    },
+    "keywords": [
+        "parcel",
+        "doT",
+        "dot",
+        "parcel dot plugin",
+        "parcel dot transform"
+    ]
+}
